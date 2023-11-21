@@ -21,9 +21,9 @@ public class Main {
 		ArrayList<String> partite = new ArrayList<>();
 		ArrayList<Integer> punteggioCasa = new ArrayList<>();
 		ArrayList<Integer> punteggioFuoricasa = new ArrayList<>();
-		String squadra1 = "", squadra2, risposta;
+		String squadra1, squadra2, risposta;
 		int punteggio1, punteggio2, i;
-		boolean primo = true;
+		
 		do {
 
 			System.out.println("inserisci una partita");
@@ -31,31 +31,31 @@ public class Main {
 ////////////////////////////////////////////////////////
 			squadra1 = sc.nextLine();
 			do {
-				
+
 				if (squadre.containsKey(squadra1)) {
-					
-				} else{
-					
+
+				} else {
+
 					System.out.println("la squadra inserita non esiste riprova:");
 					squadra1 = sc.nextLine();
-					
+
 				}
-			
+
 			} while (!squadre.containsKey(squadra1));
 //////////////////////////////////////////////////////////////////////////////
 			System.out.println("inserisci la squadra ospite:");
 			squadra2 = sc.nextLine();
 			do {
-				
+
 				if (squadre.containsKey(squadra2)) {
-					
-				} else{
-					
+
+				} else {
+
 					System.out.println("la squadra inserita non esiste riprova:");
 					squadra2 = sc.nextLine();
-					
+
 				}
-			
+
 			} while (!squadre.containsKey(squadra2));
 ///////////////////////////////////////////////////////////////////////////////////			
 			partite.add(squadra1 + "-" + squadra2);
@@ -70,34 +70,38 @@ public class Main {
 			} else if (punteggio1 < punteggio2) {
 				squadre.put(squadra2, squadre.get(squadra2) + 3); // ha vinto la squadra 2
 			} else if (punteggio1 == punteggio2) {
-				squadre.put(squadra2, squadre.get(squadra2) + 1); // in caso di pareggio
+				squadre.put(squadra2, squadre.get(squadra2) + 1);// in caso di pareggio
 				squadre.put(squadra1, squadre.get(squadra1) + 1);
 			}
-
+			
+			punteggioCasa.add(punteggio1);
+			punteggioFuoricasa.add(punteggio2);
+			
 			System.out.println("vuoi inserire un'altra partita? (si/no)");
 			risposta = sc.nextLine();
 
 		} while (risposta.equals("si"));
 
-
 		/*
-		 * ArrayList <String> prova=new ArrayList<>(squadre.keySet()); // arraylist che
-		 * contiene tutte le chiavi dell' hashmap Collections.sort(prova); for(String
-		 * s:prova) { System.out.println(s); }
+		 * ArrayList <String> prova=new ArrayList<>(squadre.keySet()); // arraylist che contiene tutte le chiavi dell' hashmap 
+		 * Collections.sort(prova); 
+		 * for(String s:prova) { System.out.println(s); }
 		 */
 
 		System.out.println("le partite giocate sono: ");
 
 		for (i = 0; i < partite.size(); i++) {
 
-			System.out.println(partite.get(i));
-
+			System.out.print(partite.get(i));
+			System.out.println(" resoconto goal:"+ punteggioCasa.get(i) +"-"+ punteggioFuoricasa.get(i)+"\n" );
+			
 		}
-		System.out.println( "\n" + "classifica:");
-		
+		System.out.println("\n" + "classifica:");
+
 		for (String t : squadre.keySet()) {
 			System.out.println(t + " " + squadre.get(t) + " " + "punti");
 		}
+
 		sc.close();
 	}
 }
